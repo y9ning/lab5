@@ -152,8 +152,8 @@
 
            // Stringify the GeoJson
            var convertedData = 'text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
-
-           var simplified = turf.simplify(convertedData, 0.01, true);
+           var options = {tolerance: 0.01, highQuality: true};
+           var simplified = turf.simplify(convertedData, options);
 
            console.log(simplified)
 
