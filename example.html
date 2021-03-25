@@ -140,24 +140,19 @@
 			drawnItems.addLayer(layer);
       console.log(layer.toGeoJSON().geometry.coordinates);
 
+      var data = drawnItems.toGeoJSON();
+
+      // Stringify the GeoJson
+
+      var simplified = turf.simplify(data, 0.01, true);
+      console.log(simplified);
+
 		});
     // clear polylines
     document.getElementById('delete').onclick = function(e) {
            drawnItems.clearLayers();
        }
     // click sim button and apply truf.simplify on the polyline
-   document.getElementById('sim').onclick = function(e) {
-           // Extract GeoJson from featureGroup
-           var data = drawnItems.toGeoJSON();
-
-           // Stringify the GeoJson
-           var convertedData = 'text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(data));
-           var options = {tolerance: 0.01, highQuality: true};
-           var simplified = turf.simplify(convertedData, options);
-
-           console.log(simplified)
-
-       }
 
     </script>
 
