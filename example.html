@@ -3,11 +3,13 @@
 <head>
     <title>Lab 5</title>
     <meta charset="utf-8" />
+
     <link rel="stylesheet" href="https://d19vzq90twjlae.cloudfront.net/leaflet-0.7/leaflet.css" />
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"
     />
+
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
     <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v3.0.11/turf.min.js'></script>
@@ -44,15 +46,13 @@
   #sim {
         top:90px;
       }
-  #sim {
-    top:80px;
-  }
     </style>
 </head>
 <body>
 
     <div id='delete'>Delete Features</div>
-    <a href='#' id='sim'>Simplify</a>
+    <div id = 'sim'><button onclick="myFunction()">Click me</button>
+    </div>
     <div id="map"></div>
 
     <script src="https://d19vzq90twjlae.cloudfront.net/leaflet-0.7/leaflet.js">
@@ -76,6 +76,7 @@
         zoomOffset: -1,
         accessToken: 'pk.eyJ1IjoieTluaW5nIiwiYSI6ImNrbGxxdXpxMzAxd3kyd21mM2JqZ3dyZGEifQ.qDVDxbn2LsePNPHw97LSTg'
     }).addTo(map);
+
 //leaflet draw plug-in
 		var LeafIcon = L.Icon.extend({
 			options: {
@@ -90,7 +91,7 @@
 		});
 
 
-
+// initialize draw tool bar.
 		var drawnItems = new L.FeatureGroup();
 		map.addLayer(drawnItems);
 
@@ -133,6 +134,7 @@
 		});
 		map.addControl(drawControl);
 
+// Draw creattion funciton.
 		map.on('draw:created', function (e) {
 			var type = e.layerType,
 				layer = e.layer;
@@ -141,19 +143,20 @@
       console.log(layer.toGeoJSON().geometry.coordinates);
 
       var data = drawnItems.toGeoJSON();
-
-      // Stringify the GeoJson
-
-      var simplified = turf.simplify(data, 0.01, true);
-      console.log(simplified);
-
 		});
     // clear polylines
     document.getElementById('delete').onclick = function(e) {
            drawnItems.clearLayers();
        }
     // click sim button and apply truf.simplify on the polyline
-
+    function myFunction() {
+    const new_data = drawnItems.toGeoJSON();
+    const simplified= turf.simplify(new_data, 0.01, true);
+    console.log(simplified);
+    L.geoJSON(simplified).addTo(map);
+  };
+// Testing whether L.geoJSON works.
+L.geoJSON( [-114.0545654296875, 51.04959612524969]).addTo(map);
     </script>
 
 </body>
