@@ -6,4 +6,4 @@ Only need to open the ***new.html***.
 ## Simplify (button)
 ***simplify*** button at the top right corner to create a simplified line regarding to the drawn polyline
 ## delete (button)
-***delete*** button at the top right corner to delete both the drawn polyline and simplified polylines
+***delete*** button at the top right corner to delete both the drawn polyline and simplified polyline
